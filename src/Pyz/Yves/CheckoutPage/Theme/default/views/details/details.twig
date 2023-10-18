@@ -1,0 +1,15 @@
+{% extends view('address', '@SprykerShop:CheckoutPage') %}
+
+{% define data = {
+    stepNumder: 1,
+} %}
+
+{% block containerClass %}container--medium{% endblock %}
+
+{% block header %}
+    {% set cart = data.forms.details.vars.data %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+{% endblock %}
