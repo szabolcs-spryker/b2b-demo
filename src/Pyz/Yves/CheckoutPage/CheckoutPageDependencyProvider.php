@@ -8,6 +8,7 @@
 namespace Pyz\Yves\CheckoutPage;
 
 use Generated\Shared\Transfer\PaymentTransfer;
+use Pyz\Yves\CheckoutPage\Plugin\DetailsFormDataProviderPlugin;
 use Spryker\Shared\Kernel\Container\GlobalContainer;
 use Spryker\Shared\Nopayment\NopaymentConfig;
 use Spryker\Yves\Kernel\Container;
@@ -47,6 +48,11 @@ class CheckoutPageDependencyProvider extends SprykerShopCheckoutPageDependencyPr
     protected const PYZ_SERVICE_FORM_FACTORY = 'form.factory';
 
     /**
+     * @var string
+     */
+    public const PLUGIN_DETAILS_FORM_DATA_PROVIDER = 'PLUGIN_DETAILS_FORM_DATA_PROVIDER';
+
+    /**
      * @param \Spryker\Yves\Kernel\Container $container
      *
      * @return \Spryker\Yves\Kernel\Container
@@ -55,6 +61,7 @@ class CheckoutPageDependencyProvider extends SprykerShopCheckoutPageDependencyPr
     {
         $container = parent::provideDependencies($container);
         $container = $this->extendPyzPaymentMethodHandler($container);
+        $container = $this->addDetailsFormDataProviderPlugin($container);
 
         return $container;
     }
@@ -71,6 +78,20 @@ class CheckoutPageDependencyProvider extends SprykerShopCheckoutPageDependencyPr
             $paymentMethodHandler->add(new PaymentForeignHandlerPlugin(), PaymentTransfer::FOREIGN_PAYMENTS);
 
             return $paymentMethodHandler;
+        });
+
+        return $container;
+    }
+
+    /**
+     * @param \Spryker\Yves\Kernel\Container $container
+     *
+     * @return \Spryker\Yves\Kernel\Container
+     */
+    protected function addDetailsFormDataProviderPlugin(Container $container): Container
+    {
+        $container->set(static::PLUGIN_DETAILS_FORM_DATA_PROVIDER, function () {
+            return new DetailsFormDataProviderPlugin();
         });
 
         return $container;
