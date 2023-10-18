@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
- * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
- */
-
 namespace Pyz\Yves\CheckoutPage\Plugin;
 
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
@@ -21,7 +16,7 @@ class DetailsFormDataProviderPlugin extends AbstractPlugin implements StepEngine
      *
      * @return \Spryker\Shared\Kernel\Transfer\AbstractTransfer
      */
-    public function getData(AbstractTransfer $quoteTransfer)
+    public function getData(AbstractTransfer $quoteTransfer): AbstractTransfer
     {
         return $this->getFactory()->createDetailsDataProvider()->getData($quoteTransfer);
     }
@@ -31,7 +26,7 @@ class DetailsFormDataProviderPlugin extends AbstractPlugin implements StepEngine
      *
      * @return array<string, mixed>
      */
-    public function getOptions(AbstractTransfer $quoteTransfer)
+    public function getOptions(AbstractTransfer $quoteTransfer): array
     {
         return $this->getFactory()->createDetailsDataProvider()->getOptions($quoteTransfer);
     }
